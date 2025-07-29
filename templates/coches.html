@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Coches{% endblock %}
+
+{% block body_class %}body-bg-coches{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="fas fa-car-side"></i> Lista de Coches</h2>
+    <a href="{{ url_for('agregar_coche') }}" class="btn btn-primary">
+      <i class="fas fa-plus-circle"></i> Agregar Coche
+    </a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Matrícula</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Color</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Cliente Asociado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for coche in coches %}
+        <tr>
+          <td>{{ coche.matricula }}</td>
+          <td>{{ coche.marca }}</td>
+          <td>{{ coche.modelo }}</td>
+          <td>{{ coche.color }}</td>
+          <td>${{ '{:,.2f}'.format(coche.precio) }}</td>
+          <td>{{ coche.nombre_cliente }} (NIF: {{ coche.nif_cliente }})</td>
+          <td>
+            <a href="{{ url_for('editar_coche', matricula=coche.matricula) }}" class="btn btn-warning btn-sm">
+              <i class="fas fa-edit"></i> Editar
+            </a>
+            <a href="{{ url_for('eliminar_coche', matricula=coche.matricula) }}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este coche?');">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="text-center">No hay coches registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

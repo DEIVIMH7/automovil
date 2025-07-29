@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Coche{% endblock %}
+
+{% block content %}
+    <h2>Editar Coche</h2>
+    <form method="POST" action="{{ url_for('editar_coche', matricula=coche.matricula) }}">
+        <div class="form-group">
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" value="{{ coche.matricula }}" readonly>
+            {# La matrícula es readonly porque es la clave primaria #}
+        </div>
+        <div class="form-group">
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" value="{{ coche.marca }}" required>
+        </div>
+        <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" value="{{ coche.modelo }}" required>
+        </div>
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color" value="{{ coche.color }}">
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" step="0.01" id="precio" name="precio" value="{{ coche.precio }}" required>
+        </div>
+        <div class="form-group">
+            <label for="nif_cliente">Cliente Asociado:</label>
+            <select id="nif_cliente" name="nif_cliente" required>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.nif }}" {% if cliente.nif == coche.nif_cliente %}selected{% endif %}>
+                        {{ cliente.nombre }} (NIF: {{ cliente.nif }})
+                    </option>
+                {% else %}
+                    <option value="">No hay clientes para asociar</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Actualizar Coche</button>
+            <a href="{{ url_for('coches') }}" class="btn btn-cancel">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

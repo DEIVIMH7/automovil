@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Revisión{% endblock %}
+
+{% block content %}
+    <h2>Agregar Nueva Revisión</h2>
+    <form method="POST" action="{{ url_for('agregar_revision') }}">
+        <div class="form-group">
+            <label for="matricula_coche">Coche:</label>
+            <select id="matricula_coche" name="matricula_coche" required>
+                {% for coche in coches %}
+                    <option value="{{ coche.matricula }}">{{ coche.marca }} {{ coche.modelo }} ({{ coche.matricula }})</option>
+                {% else %}
+                    <option value="">No hay coches para asociar revisiones</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fecha_revision">Fecha de Revisión:</label>
+            <input type="date" id="fecha_revision" name="fecha_revision" required>
+        </div>
+        <div class="form-group">
+            <label for="kilometraje">Kilometraje:</label>
+            <input type="number" id="kilometraje" name="kilometraje" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="importe">Importe:</label>
+            <input type="number" step="0.01" id="importe" name="importe" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Guardar Revisión</button>
+            <a href="{{ url_for('revisiones') }}" class="btn btn-cancel">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

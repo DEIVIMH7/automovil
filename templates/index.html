@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+        /* Estilos básicos para la página principal */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            overflow: hidden; /* Para evitar scroll si la imagen es muy grande */
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            background-color: #000000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 900px;
+            width: 90%;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+        }
+        .image-section {
+            flex: 1;
+            min-width: 300px; /* Ancho mínimo para la sección de la imagen */
+            text-align: center;
+            padding: 10px;
+        }
+        /* Aquí usamos `url_for` de Jinja2 (el motor de plantillas de Flask) para la ruta de la imagen */
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .text-section {
+            flex: 2;
+            min-width: 300px; /* Ancho mínimo para la sección de texto */
+            padding: 10px 20px;
+        }
+        h1 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+        p {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .continue-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Quitar subrayado del enlace */
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+        .continue-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Apila los elementos verticalmente en pantallas pequeñas */
+            }
+            .image-section, .text-section {
+                min-width: unset; /* Elimina el ancho mínimo para que se ajusten al 100% */
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-section">
+
+        </div>
+        <div class="text-section">
+            <h1>¡Hola! Bienvenido.</h1>
+            <p>Este es tu sitio web de confianza para la gestión integral de automóviles. Aquí podrás registrar y mantener un control detallado de tus clientes, vehículos y las revisiones que se les realicen.</p>
+            <p>Nuestra plataforma está diseñada para simplificar tu trabajo y ayudarte a tener toda la información importante a un solo clic.</p>
+            <a href="{{ url_for('clientes') }}" class="continue-button">Continuar</a>
+        </div>
+    </div>
+</body>
+</html>

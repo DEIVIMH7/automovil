@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Revisión{% endblock %}
+
+{% block content %}
+    <h2>Editar Revisión</h2>
+    <form method="POST" action="{{ url_for('editar_revision', codigo=revision.codigo) }}"> {# CAMBIO AQUÍ #}
+        <div class="form-group">
+            <label for="codigo">ID Revisión:</label> {# Etiqueta para el usuario #}
+            <input type="text" id="codigo" name="codigo" value="{{ revision.codigo }}" readonly> {# CAMBIO AQUÍ #}
+        </div>
+        <div class="form-group">
+            <label for="matricula_coche">Coche:</label>
+            <select id="matricula_coche" name="matricula_coche" required>
+                {% for coche in coches %}
+                    <option value="{{ coche.matricula }}" {% if coche.matricula == revision.matricula_coche %}selected{% endif %}>
+                        {{ coche.marca }} {{ coche.modelo }} ({{ coche.matricula }})
+                    </option>
+                {% else %}
+                    <option value="">No hay coches disponibles</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fecha_revision">Fecha de Revisión:</label>
+            <input type="date" id="fecha_revision" name="fecha_revision" value="{{ revision.fecha_revision.strftime('%Y-%m-%d') if revision.fecha_revision else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="kilometraje">Kilometraje:</label>
+            <input type="number" id="kilometraje" name="kilometraje" value="{{ revision.kilometraje }}" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4">{{ revision.descripcion }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="importe">Importe:</label>
+            <input type="number" step="0.01" id="importe" name="importe" value="{{ revision.importe }}" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Actualizar Revisión</button>
+            <a href="{{ url_for('revisiones') }}" class="btn btn-cancel">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}
